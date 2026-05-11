@@ -5,7 +5,10 @@ width: 640
 height: 480
 
 # Desired streaming rate
-fps: 10
+fps: 5
 
 # Convert RGB images to graty before streaming
 toGray: False
+
+# RTMP server URL
+rtmp_url: "rtmp://116.203.220.97:1935/app/owl"

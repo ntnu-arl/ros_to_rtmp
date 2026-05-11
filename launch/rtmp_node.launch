@@ -1,20 +1,12 @@
 <launch>
   
   <arg name="config_file" default="$(find ros_to_rtmp)/config/rtmp.yaml"/>
-  <arg name="width" default="640"/>
-  <arg name="height" default="480"/>
-  <arg name="rtmp_url" default="rtmp://127.0.0.1:1935/live/webcam"/>
   <arg name="img_topic" default="camera/image_raw"/>
-  <arg name="toGray" default="false"/>
-  <arg name="fps" default="30"/>
+  <arg name="python_env" default="$(find semantic_inference_python)/ros_semantics_env/bin/python" doc="Python environment for open vocab"/>
 
 
-  <node name="ros2rtmp_node" pkg="ros_to_rtmp" type="rtmp_node.py" output="screen">
-    <param name="width" value="$(arg width)"/>
-    <param name="height" value="$(arg height)"/>
-    <param name="rtmp_url" value="$(arg rtmp_url)"/>
-    <param name="toGray" value="$(arg toGray)"/>
-    <param name="fps" value="$(arg fps)"/>
+  <node name="ros2rtmp_node" pkg="ros_to_rtmp" type="rtmp_node.py" output="screen" launch-prefix="$(arg python_env)">
+    <rosparam file="$(arg config_file)"/>
     <remap from="camera/image_raw" to="$(arg img_topic)"/>
   </node>
 
