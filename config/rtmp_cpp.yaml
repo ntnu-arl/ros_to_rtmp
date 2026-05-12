@@ -1,0 +1,12 @@
+# Image size
+width: 640
+height: 480
+
+# Framerate
+image_rate: 5
+
+# Bitrate for streaming
+bitrate: 2500
+
+# RTMP server URL
+rtmp_url: rtmp://116.203.220.97:1935/app/owl
