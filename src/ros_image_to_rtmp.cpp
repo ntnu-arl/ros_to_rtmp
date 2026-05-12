@@ -16,7 +16,7 @@ RosImageToRtmp::RosImageToRtmp(ros::NodeHandle& nh, ros::NodeHandle& pnh)
 
     sub_ = nh.subscribe(image_topic_, 10, &RosImageToRtmp::imageCallback, this);
 
-    ROS_INFO("Streaming %s to %s at %dx%d @ %d FPS",
+    ROS_INFO("[ros_to_rtmp] Streaming %s to %s at %dx%d @ %d FPS",
              image_topic_.c_str(),
              rtmp_url_.c_str(),
              width_,
@@ -49,7 +49,7 @@ void RosImageToRtmp::openWriter()
 
     if (!writer_.isOpened())
     {
-        ROS_ERROR("Failed to open RTMP writer. Check OpenCV GStreamer support and RTMP URL.");
+        ROS_ERROR("[ros_to_rtmp] Failed to open RTMP writer. Check OpenCV GStreamer support and RTMP URL.");
     }
 }
 
@@ -78,7 +78,7 @@ void RosImageToRtmp::imageCallback(const sensor_msgs::ImageConstPtr& msg)
     }
     catch (const cv_bridge::Exception& e)
     {
-        ROS_WARN_THROTTLE(2.0, "cv_bridge error: %s", e.what());
+        ROS_WARN_THROTTLE(2.0, "[ros_to_rtmp] cv_bridge error: %s", e.what());
         return;
     }
 
@@ -93,7 +93,7 @@ void RosImageToRtmp::imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
     // Send frame to RTMP stream
     writer_.write(resized);
-    ROS_INFO_THROTTLE(5.0, "Streaming frame at %f FPS", 1.0 / (dt).toSec());
+    ROS_INFO_THROTTLE(5.0, "[ros_to_rtmp] Streaming frame at %f FPS", 1.0 / (dt).toSec());
 }
 
 int main(int argc, char** argv)
