@@ -2,8 +2,9 @@
 
   <arg name="image_topic" default="/camera/image_raw"/>
   <arg name="config_file" default="$(find ros_to_rtmp)/config/rtmp_cpp.yaml"/>
+  <arg name="node_name" default="ros_to_rtmp_node"/>
   
-  <node pkg="ros_to_rtmp" type="ros_image_to_rtmp_node" name="ros_to_rtmp_node" output="screen">
+  <node pkg="ros_to_rtmp" type="ros_image_to_rtmp_node" name="$(arg node_name)" output="screen">
     <param name="image_topic" value="$(arg image_topic)"/>
     <rosparam file="$(arg config_file)"/>
   </node>
